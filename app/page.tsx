@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Smartphone, Download, Github, Shield, Heart, Zap, Users, Wifi, WifiOff } from "lucide-react"
+import { Smartphone, Download, Github, Shield, Heart, Zap, Users, Wifi, WifiOff, ArrowUpDown, Nfc } from "lucide-react"
 import Link from "next/link"
 
 export default function LandingPage() {
@@ -30,6 +30,9 @@ export default function LandingPage() {
           <Link href="/app" className="text-purple-300 hover:text-white transition-colors">
             Demo
           </Link>
+          <Link href="/exchange" className="text-purple-300 hover:text-white transition-colors">
+            Exchange
+          </Link>
           <Link href="/docs" className="text-purple-300 hover:text-white transition-colors">
             Docs
           </Link>
@@ -39,6 +42,45 @@ export default function LandingPage() {
           </Button>
         </div>
       </nav>
+
+      {/* NFC Exchange Banner */}
+      <section className="relative z-10 px-6 mb-8">
+        <div className="max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border-blue-500/40 p-6 backdrop-blur-sm">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                  <Nfc className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-blue-300">NFC Currency Exchange</h3>
+                  <p className="text-sm text-gray-400">Tap to exchange • Powered by Plaid</p>
+                </div>
+              </div>
+              <Link href="/exchange">
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                  <ArrowUpDown className="w-4 h-4 mr-2" />
+                  Exchange Now
+                </Button>
+              </Link>
+            </div>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div className="flex items-center space-x-2">
+                <Shield className="w-4 h-4 text-green-400" />
+                <span className="text-gray-300">Bank-grade security</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Zap className="w-4 h-4 text-yellow-400" />
+                <span className="text-gray-300">Instant transfers</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Nfc className="w-4 h-4 text-blue-400" />
+                <span className="text-gray-300">NFC tap-to-pay</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
 
       {/* Hero Section */}
       <section className="relative z-10 text-center py-20 px-6">
@@ -147,14 +189,13 @@ export default function LandingPage() {
               </p>
             </Card>
 
-            <Card className="bg-gradient-to-br from-indigo-900/20 to-transparent border-indigo-500/30 p-6 backdrop-blur-sm">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center mb-4">
-                <Github className="w-6 h-6 text-white" />
+            <Card className="bg-gradient-to-br from-blue-900/20 to-transparent border-blue-500/30 p-6 backdrop-blur-sm">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mb-4">
+                <Nfc className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold mb-3 text-indigo-300">Open Source</h3>
+              <h3 className="text-xl font-semibold mb-3 text-blue-300">NFC Exchange</h3>
               <p className="text-gray-400">
-                Transparent protocols, auditable code. The mesh engine and encryption are fully open for community
-                review.
+                Tap devices to instantly exchange currencies with bank-grade security powered by Plaid integration.
               </p>
             </Card>
           </div>
