@@ -1,4 +1,4 @@
-# 🌐 Current – Decentralized Kindness Messaging
+# 🌐 Current – Your Data Your Call
 
 > “Your Conversation Your Data Your Freedom Your CALL ☎️📲📞.” – #desirelovell
 
