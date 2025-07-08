@@ -5,10 +5,16 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Nfc, Zap, ArrowUpDown, Wallet } from "lucide-react"
-import { NDEFReader } from "ndef-reader" // Declare NDEFReader
 
 interface NFCExchangeWidgetProps {
   onExchangeData?: (data: any) => void
+}
+
+// Declare NDEFReader as a global interface for TypeScript
+declare global {
+  interface Window {
+    NDEFReader: any
+  }
 }
 
 export function NFCExchangeWidget({ onExchangeData }: NFCExchangeWidgetProps) {
@@ -18,7 +24,7 @@ export function NFCExchangeWidget({ onExchangeData }: NFCExchangeWidgetProps) {
 
   useEffect(() => {
     // Check if NFC is available
-    if ("NDEFReader" in window) {
+    if (typeof window !== "undefined" && "NDEFReader" in window) {
       setIsNFCEnabled(true)
     }
   }, [])
@@ -29,7 +35,7 @@ export function NFCExchangeWidget({ onExchangeData }: NFCExchangeWidgetProps) {
     try {
       setIsReading(true)
       // @ts-ignore - NDEFReader is experimental
-      const ndef = new NDEFReader()
+      const ndef = new window.NDEFReader()
       await ndef.scan()
 
       ndef.addEventListener("reading", ({ message }: any) => {

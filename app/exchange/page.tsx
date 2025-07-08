@@ -7,7 +7,6 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Nfc, ArrowUpDown, Wallet, Shield, Zap } from "lucide-react"
 import Link from "next/link"
-import { NDEFReader } from "ndef-reader" // Declare NDEFReader
 
 interface ExchangeRate {
   from: string
@@ -21,6 +20,13 @@ interface NFCData {
   fromCurrency: string
   toCurrency: string
   deviceId: string
+}
+
+// Declare NDEFReader as a global interface for TypeScript
+declare global {
+  interface Window {
+    NDEFReader: any
+  }
 }
 
 export default function CurrencyExchange() {
@@ -41,7 +47,7 @@ export default function CurrencyExchange() {
 
   useEffect(() => {
     // Check if NFC is available
-    if ("NDEFReader" in window) {
+    if (typeof window !== "undefined" && "NDEFReader" in window) {
       setIsNFCEnabled(true)
     }
   }, [])
@@ -71,7 +77,8 @@ export default function CurrencyExchange() {
 
     try {
       setIsNFCReading(true)
-      const ndef = new NDEFReader() // Use declared NDEFReader
+      // @ts-ignore - NDEFReader is experimental
+      const ndef = new window.NDEFReader()
       await ndef.scan()
 
       ndef.addEventListener("reading", ({ message }: any) => {
@@ -102,7 +109,8 @@ export default function CurrencyExchange() {
     if (!isNFCEnabled || !amount) return
 
     try {
-      const ndef = new NDEFReader() // Use declared NDEFReader
+      // @ts-ignore - NDEFReader is experimental
+      const ndef = new window.NDEFReader()
       const nfcData: NFCData = {
         amount: Number.parseFloat(amount),
         fromCurrency,
